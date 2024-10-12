@@ -34,6 +34,7 @@ public class BlogService {
     public void delete(long id){
         blogRepository.deleteById(id);
     }
+
     // @Transactional 애너테이션: 매칭한 메서드를 트랜잭션으로 묶는 역할
     // -> update() 메서드는 엔티티의 필드 값 바뀌면 중간에 에러 발생해도 제대로 된 값 수정 보장
     @Transactional
