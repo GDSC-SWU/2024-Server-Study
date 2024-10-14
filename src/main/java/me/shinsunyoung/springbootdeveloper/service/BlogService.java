@@ -1,16 +1,12 @@
 package me.shinsunyoung.springbootdeveloper.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.shinsunyoung.springbootdeveloper.domain.Article;
 import me.shinsunyoung.springbootdeveloper.dto.AddArticleRequest;
-import me.shinsunyoung.springbootdeveloper.dto.ArticleResponse;
-//import me.shinsunyoung.springbootdeveloper.dto.UpdateArticleRequest;
+import me.shinsunyoung.springbootdeveloper.dto.UpdateArticleRequest;
 import me.shinsunyoung.springbootdeveloper.repository.BlogRepository;
-import me.shinsunyoung.springbootdeveloper.service.BlogService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +14,7 @@ import java.util.List;
 @Service
 
 public class BlogService {
+
     private final BlogRepository blogRepository;
 
     public Article save(AddArticleRequest request){
@@ -27,12 +24,21 @@ public class BlogService {
     public List<Article> findAll(){
         return blogRepository.findAll();
     }
-    @GetMapping("/api/articles/{id}")
-    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
-        Article article = blogService.findById(id);
 
-        return ResponseEntity.ok()
-                .body(new ArticleResponse(article));
+    public Article findById(long id){
+        return blogRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("not found:"+id));
     }
+    public void delete(long id){
+        blogRepository.deleteById(id);
+    }
+    @Transactional
+    public Article update(long id, UpdateArticleRequest request){
+        Article article=blogRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("not found: "+id));
 
+        article.update(request.getTitle(),request.getContent());
+
+        return article;
+    }
 }
