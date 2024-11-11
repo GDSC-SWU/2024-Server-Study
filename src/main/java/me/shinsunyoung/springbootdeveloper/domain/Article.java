@@ -14,35 +14,37 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Getter
-@NoArgsConstructor(access= AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Article {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id",updatable=false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false)
     private Long id;
 
-    @CreatedDate //엔티티가 생성될 떄 생성 시간 저장
-    @Column(name="created_at")
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "content", nullable = false)
+    private String content;
+
+    @CreatedDate
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name="updated_at")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name="title",nullable = false)
-    private String title;
-
-    @Column(name="content",nullable = false)
-    private String content;
 
     @Builder
-    public Article(String title,String content){
-        this.title=title;
-        this.content=content;
+    public Article(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
-    public void update(String title, String content){
-        this.title=title;
-        this.content=content;
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 }
