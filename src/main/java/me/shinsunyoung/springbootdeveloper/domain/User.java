@@ -30,9 +30,10 @@ public class User implements UserDetails {
     private String password;
 
     @Builder
-    public User(String email, String password, String auth) {
+    public User(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname= nickname;
     }
 
 
@@ -69,5 +70,14 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Column(name="nickname",unique = true)
+    private String nickname;
+
+    public User update(String nickname){
+        this.nickname=nickname;
+
+        return this;
     }
 }
