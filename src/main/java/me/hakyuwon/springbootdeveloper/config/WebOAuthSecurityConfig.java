@@ -3,6 +3,7 @@ package me.hakyuwon.springbootdeveloper.config;
 import lombok.RequiredArgsConstructor;
 import me.hakyuwon.springbootdeveloper.config.jwt.TokenProvider;
 import me.hakyuwon.springbootdeveloper.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import me.hakyuwon.springbootdeveloper.config.oauth.OAuth2SuccessHandler;
 import me.hakyuwon.springbootdeveloper.config.oauth.OAuth2UserCustomService;
 import me.hakyuwon.springbootdeveloper.repository.RefreshTokenRepository;
 import me.hakyuwon.springbootdeveloper.service.UserService;
